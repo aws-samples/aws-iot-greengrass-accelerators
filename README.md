@@ -1,10 +1,10 @@
 # AWS IoT Greengrass Accelerators
 
-AWS IoT Greengrass accelerators (accelerators) demonstrate common design patterns or use cases for both AWS IoT Greengrass Version 1 (V1) and also AWS IoT Greengrass Version 2 (V2).
+AWS IoT Greengrass accelerators (accelerators) demonstrate common design patterns or use cases for both AWS IoT Greengrass Version 2 (V2).
 
-Each subfolder under `v1/` or `/v2/` contains the accelerators. AWS IoT Greengrass V2 is the latest major version of AWS IoT Greengrass. The V1 accelerators are still applicable, but new accelerator development will focus on AWS IoT Greengrass V2.
+The subfolder `/v2/` contains the accelerators. AWS IoT Greengrass V2 is the latest major version of AWS IoT Greengrass. As of July 31, 2024, the V1 accelerators have been removed as AWS IoT Greengrass Version 1 no longer receives feature updates, enhancements, bug fixes, or security patches since June 30, 2023.
 
-## Accelerators for AWS IoT Greengrass V2
+## Accelerators for AWS IoT Greengrass Version 2
 
 All of the V2 accelerators are designed to be deployed as a combination of AWS CloudFormation stacks in the cloud, and as Docker containers on your local system or through [AWS Cloud9](https://aws.amazon.com/cloud9/). This provides a consistent and quick approach to testing or investigating functionality without impacting or leaving behind unneeded artifacts. While designed for containers, the actual components can be deployed onto physical hardware, virtual machines, or Amazon Elastic Compute Cloud (Amazon EC2) instances.
 
@@ -18,13 +18,6 @@ The current V2 accelerators are:
   - This accelerator deploys additional functionality on to the _Base Implementation_ stack to demonstrate how to extract, transform, and load (ETL) data from a local device to the cloud. This accelerator breaks the three steps into discrete processes, decoupled by using [Interprocess Communcation](https://docs.aws.amazon.com/greengrass/v2/developerguide/interprocess-communication.html).
 - [AWS IoT SiteWise Deployment](v2/aws_iot_sitewise)
   - This accelerator deploys additional functionality on to the _Base Implementation_ stack to demonstrate a basic AWS IoT SiteWise deployment. Specifically, it leverages the AWS IoT SiteWise OPC-UA collector component to collect data from a configurable OPC-UA endpoint.
-
-## Accelerators for AWS IoT Greengrass V1
-
-- [Extract, Transform, and Load](v1/extract_transform_load)
-- [Machine Learning Inference](v1/machine_learning_inference)
-- [Stream Manager](v1/stream_manager) (and Docker Application Management)
-
 
 # CDK-Less AWS IoT Greengrass Version 2 Accelerators
 
