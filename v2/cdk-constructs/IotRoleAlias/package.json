@@ -6,9 +6,12 @@
     "build": "tsc"
   },
   "dependencies": {
-    "@types/node": "18.11.8",
-    "aws-cdk-lib": "2.131.0",
-    "constructs": "10.3.0",
+    "@types/node": "24.0.8",
+    "aws-cdk-lib": "2.202.0",
+    "constructs": "10.4.2",
     "path": "0.12.7"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3"
   }
 }
