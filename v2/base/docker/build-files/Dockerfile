@@ -1,7 +1,7 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: MIT-0
 
-FROM amazonlinux:2023
+FROM public.ecr.aws/amazonlinux/amazonlinux:2023
 
 # Replace the args to lock to a specific version
 ARG GREENGRASS_RELEASE_VERSION=2.14.3
@@ -13,7 +13,7 @@ LABEL maintainer="AWS IoT Greengrass"
 # Greengrass Version
 LABEL greengrass-version=${GREENGRASS_RELEASE_VERSION}
 # Base OS
-LABEL base-os="Amazon Linux 2023"
+LABEL base-os="Amazon Linux 2023 (AWS ECR Public)"
 # Python Version
 LABEL python-version="3.11"
 # Java Version  
