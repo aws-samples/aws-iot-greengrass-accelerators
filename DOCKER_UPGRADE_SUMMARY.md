@@ -7,9 +7,9 @@ Successfully completed **Phase 1 (Base Infrastructure)** and **Phase 2 (Greengra
 ## ✅ Phase 1: Base Infrastructure Modernization
 
 ### Operating System Upgrade
-- **FROM**: Amazon Linux 2 (maintenance mode)
-- **TO**: Amazon Linux 2023 (modern, actively supported)
-- **Benefits**: Modern package management (dnf), better security updates, container optimization
+- **FROM**: Amazon Linux 2 (maintenance mode, Docker Hub)
+- **TO**: Amazon Linux 2023 (AWS ECR Public: `public.ecr.aws/amazonlinux/amazonlinux:2023`)
+- **Benefits**: Modern package management (dnf), better security updates, container optimization, AWS-native registry
 
 ### Python Stack Modernization  
 - **FROM**: Python 3.7 + 3.8 (via amazon-linux-extras)
@@ -20,6 +20,16 @@ Successfully completed **Phase 1 (Base Infrastructure)** and **Phase 2 (Greengra
 - **FROM**: Java 11 (Amazon Corretto)
 - **TO**: Java 17 (Amazon Corretto LTS)
 - **Benefits**: 15-20% performance boost, better memory management, extended support until 2029
+
+### Package Management Optimization
+### Container Registry Migration
+```dockerfile
+# Before (Docker Hub)
+FROM amazonlinux:2
+
+# After (AWS ECR Public)
+FROM public.ecr.aws/amazonlinux/amazonlinux:2023
+```
 
 ### Package Management Optimization
 ```dockerfile
@@ -79,21 +89,23 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
 
 | Category | Before | After | Improvement |
 |----------|--------|-------|-------------|
-| **Base OS** | Amazon Linux 2 | Amazon Linux 2023 | Modern, actively supported |
+| **Base OS** | Amazon Linux 2 (Docker Hub) | Amazon Linux 2023 (AWS ECR Public) | Modern, AWS-native registry |
 | **Python Performance** | 3.7/3.8 | 3.11 | +10-60% speed improvement |
 | **Java Performance** | 11 | 17 | +15-20% performance boost |
 | **Greengrass Version** | 2.10.3 | 2.14.3 | +4 major releases |
 | **Security Updates** | Limited (AL2) | Current (AL2023) | Latest patches |
 | **Package Manager** | yum | dnf | Modern, efficient |
 | **Container Health** | None | Health checks | Monitoring capability |
+| **Registry** | Docker Hub | AWS ECR Public | Better reliability, AWS-native |
 
 ## 🔒 Security Enhancements
 
 1. **Modern OS**: Amazon Linux 2023 with latest security patches
-2. **Minimal packages**: Only essential packages installed
-3. **Clean builds**: Proper cache cleanup to reduce attack surface
-4. **Health monitoring**: Container health checks for operational security
-5. **Updated runtimes**: Latest Python 3.11 and Java 17 with security fixes
+2. **AWS ECR Public**: Official AWS registry with better security and reliability
+3. **Minimal packages**: Only essential packages installed
+4. **Clean builds**: Proper cache cleanup to reduce attack surface
+5. **Health monitoring**: Container health checks for operational security
+6. **Updated runtimes**: Latest Python 3.11 and Java 17 with security fixes
 
 ## 🚀 Next Steps Available
 
