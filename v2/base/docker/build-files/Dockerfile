@@ -42,15 +42,15 @@ COPY "greengrass-entrypoint.sh" /
 # Install Greengrass v2 dependencies
 RUN dnf update -y && \
     dnf install -y --setopt=install_weak_deps=False \
-        python3.11 \
-        python3.11-pip \
-        java-17-amazon-corretto-headless \
-        tar \
-        unzip \
-        wget \
-        sudo \
-        procps-ng \
-        which && \
+    python3 \
+    python3-pip \
+    java-17-amazon-corretto-headless \
+    tar \
+    unzip \
+    wget \
+    sudo \
+    procps-ng \
+    which && \
     wget $GREENGRASS_RELEASE_URI && \
     dnf clean all && \
     chmod +x /greengrass-entrypoint.sh && \
