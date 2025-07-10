@@ -51,6 +51,7 @@ RUN dnf update -y && \
     wget \
     sudo \
     procps-ng \
+    shadow-utils \
     which && \
     wget $GREENGRASS_RELEASE_URI && \
     dnf clean all && \
