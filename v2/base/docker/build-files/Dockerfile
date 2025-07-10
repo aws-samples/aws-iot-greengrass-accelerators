@@ -44,6 +44,7 @@ RUN dnf update -y && \
     dnf install -y --setopt=install_weak_deps=False \
     python3 \
     python3-pip \
+    python3-setuptools \
     java-17-amazon-corretto-headless \
     tar \
     unzip \
