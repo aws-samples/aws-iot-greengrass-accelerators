@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: MIT-0
 
 import * as os from "os"
-import * as seedrandom from "seedrandom"
+import seedrandom from "seedrandom"
 import { Construct } from "constructs"
 import * as cdk from "aws-cdk-lib"
 import { aws_iam as iam } from "aws-cdk-lib"
@@ -137,9 +137,9 @@ export class SiteWiseStack extends cdk.Stack {
         targetArn: deploymentGroup.thingGroupArn,
         deploymentName: `${this.stackName} - AWS IoT SiteWise deployment`,
         component: {
-          "aws.iot.SiteWiseEdgeCollectorOpcua": { componentVersion: "2.1.3" },
-          "aws.iot.SiteWiseEdgePublisher": { componentVersion: "2.2.3" },
-          "aws.greengrass.StreamManager": { componentVersion: "2.1.2" }
+          "aws.iot.SiteWiseEdgeCollectorOpcua": { componentVersion: "2.4.1" },
+          "aws.iot.SiteWiseEdgePublisher": { componentVersion: "3.1.1" },
+          "aws.greengrass.StreamManager": { componentVersion: "2.1.12" }
         }
       }
     )

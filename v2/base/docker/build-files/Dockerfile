@@ -1,10 +1,10 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: MIT-0
 
-FROM amazonlinux:2
+FROM public.ecr.aws/amazonlinux/amazonlinux:2023
 
 # Replace the args to lock to a specific version
-ARG GREENGRASS_RELEASE_VERSION=2.8.1
+ARG GREENGRASS_RELEASE_VERSION=2.14.3
 ARG GREENGRASS_ZIP_FILE=greengrass-${GREENGRASS_RELEASE_VERSION}.zip
 ARG GREENGRASS_RELEASE_URI=https://d2s8p88vqu9w66.cloudfront.net/releases/${GREENGRASS_ZIP_FILE}
 
@@ -12,10 +12,16 @@ ARG GREENGRASS_RELEASE_URI=https://d2s8p88vqu9w66.cloudfront.net/releases/${GREE
 LABEL maintainer="AWS IoT Greengrass"
 # Greengrass Version
 LABEL greengrass-version=${GREENGRASS_RELEASE_VERSION}
+# Base OS
+LABEL base-os="Amazon Linux 2023 (AWS ECR Public)"
+# Python Version
+LABEL python-version="3.11"
+# Java Version  
+LABEL java-version="17"
 
 # Set up Greengrass v2 execution parameters
 # TINI_KILL_PROCESS_GROUP allows forwarding SIGTERM to all PIDs in the PID group so Greengrass can exit gracefully
-ENV TINI_KILL_PROCESS_GROUP=1 \ 
+ENV TINI_KILL_PROCESS_GROUP=1 \
     GGC_ROOT_PATH=/greengrass/v2 \
     PROVISION=false \
     AWS_REGION=us-east-1 \
@@ -34,16 +40,33 @@ RUN env
 COPY "greengrass-entrypoint.sh" /
 
 # Install Greengrass v2 dependencies
-RUN yum update -y && yum install -y python37 tar unzip wget sudo procps which && \
-    amazon-linux-extras enable python3.8 && yum install -y python3.8 java-11-amazon-corretto-headless && \
-    wget $GREENGRASS_RELEASE_URI &&  \
-    rm -rf /var/cache/yum && \
+RUN dnf update -y && \
+    dnf install -y --setopt=install_weak_deps=False \
+    python3 \
+    python3-pip \
+    python3-setuptools \
+    java-17-amazon-corretto-headless \
+    tar \
+    unzip \
+    wget \
+    sudo \
+    procps-ng \
+    shadow-utils \
+    which && \
+    wget $GREENGRASS_RELEASE_URI && \
+    dnf clean all && \
     chmod +x /greengrass-entrypoint.sh && \
-    mkdir -p /opt/greengrassv2 $GGC_ROOT_PATH && unzip $GREENGRASS_ZIP_FILE -d /opt/greengrassv2 && rm $GREENGRASS_ZIP_FILE
+    mkdir -p /opt/greengrassv2 $GGC_ROOT_PATH && \
+    unzip $GREENGRASS_ZIP_FILE -d /opt/greengrassv2 && \
+    rm $GREENGRASS_ZIP_FILE
 
 # modify /etc/sudoers
 COPY "modify-sudoers.sh" /
 RUN chmod +x /modify-sudoers.sh
 RUN ./modify-sudoers.sh
+
+# Add health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
+    CMD pgrep -f "Greengrass.jar" > /dev/null || exit 1
 
 ENTRYPOINT ["/greengrass-entrypoint.sh"]

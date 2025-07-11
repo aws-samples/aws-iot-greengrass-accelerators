@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 
-import * as chalk from "chalk"
+import chalk from "chalk"
 import * as _ from "lodash"
 
 import { OPCUAServer, DataType, Variant } from "node-opcua"

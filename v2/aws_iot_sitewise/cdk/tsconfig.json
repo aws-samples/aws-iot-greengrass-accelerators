@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "ES2018",
     "module": "commonjs",
-    "lib": ["es2018"],
+    "lib": ["es2018", "dom"],
     "declaration": true,
     "strict": true,
     "noImplicitAny": true,
@@ -21,7 +21,10 @@
     "baseUrl": "./bin",
     "paths": {
       "@cdkConstructs/*": ["../../../cdk-constructs/*"]
-    }
+    },
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true
   },
   "references": [
     { "path": "../../cdk-constructs/GreengrassV2Component" },
